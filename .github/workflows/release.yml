@@ -14,8 +14,48 @@ on:
           - patch
 
 jobs:
-  release:
+  build:
     runs-on: macos-26
+    outputs:
+      binary_name: vision-mcp-server
+
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify Swift version
+        run: swift --version
+
+      - name: Build Swift binary
+        run: |
+          swift build -c release
+          cp .build/release/VisionMCPServer ./vision-mcp-server
+          chmod +x ./vision-mcp-server
+
+      - name: Verify build
+        run: |
+          file ./vision-mcp-server | grep -q "Mach-O.*executable"
+          test -x ./vision-mcp-server
+
+      - name: Test MCP server
+        run: |
+          echo '{"jsonrpc":"2.0","method":"tools/list","id":1}' | ./vision-mcp-server 2>/dev/null | jq .
+
+      - name: Upload binary artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vision-mcp-binary
+          path: vision-mcp-server
+          if-no-files-found: error
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       packages: write
@@ -33,26 +73,23 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Verify Swift version
-        run: swift --version
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Build Swift binary
-        run: npm run build:release
+      - name: Download binary artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: vision-mcp-binary
+          path: .
 
-      - name: Verify build
+      - name: Verify binary
         run: |
-          file ./vision-mcp-server | grep -q "Mach-O.*executable"
-          test -x ./vision-mcp-server
-
-      - name: Test MCP server
-        run: |
-          echo '{"jsonrpc":"2.0","method":"tools/list","id":1}' | ./vision-mcp-server 2>/dev/null | jq .
+          ls -lah vision-mcp-server
+          test -f vision-mcp-server
+          test -x vision-mcp-server
 
       - name: Configure Git
         run: |
@@ -79,7 +116,7 @@ jobs:
         run: |
           NEW_VERSION=${TAG_VERSION#v}
           npm version $NEW_VERSION --no-git-tag-version --allow-same-version
-          git add package.json package-lock.json
+          git add package.json
           git commit -m "chore: sync package.json with tag ${{ steps.tag.outputs.new_tag }}"
           git push origin main
         env:
