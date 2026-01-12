@@ -85,6 +85,9 @@ jobs:
           name: vision-mcp-binary
           path: .
 
+      - name: Make binary executable
+        run: chmod +x vision-mcp-server
+
       - name: Verify binary
         run: |
           ls -lah vision-mcp-server
