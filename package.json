@@ -9,7 +9,7 @@
     "vision-mcp-server": "vision-mcp.js"
   },
   "files": [
-    "ocr-mcp-server",
+    "vision-mcp-server",
     "vision-mcp.js",
     "README.md",
     "LICENSE"
@@ -17,9 +17,10 @@
   "scripts": {
     "build": "./scripts/build-swift.sh",
     "build:release": "./scripts/build-swift.sh --release",
+    "test": "swift test",
     "prepare-release": "node scripts/prepare-release.js",
     "prepublishOnly": "npm run build:release && npm run prepare-release",
-    "postinstall": "chmod +x ocr-mcp-server 2>/dev/null || true"
+    "postinstall": "chmod +x vision-mcp-server 2>/dev/null || true"
   },
   "repository": {
     "type": "git",

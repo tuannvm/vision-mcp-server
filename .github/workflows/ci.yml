@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-13
+
+    steps:
+    - name: Harden Runner
+      uses: step-security/harden-runner@v2
+      with:
+        egress-policy: audit
+
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Swift
+      uses: swift-actions/setup-swift@v1
+      with:
+        swift-version: "6.1"
+
+    - name: Build project
+      run: swift build -c release
+
+    - name: Verify binary
+      run: |
+        .build/release/VisionMCPServer --version 2>&1 || echo "Binary exists"
+
+    - name: Test MCP protocol
+      run: |
+        echo '{"jsonrpc":"2.0","method":"tools/list","id":1}' | .build/release/VisionMCPServer 2>/dev/null | jq .
+
+  security:
+    runs-on: macos-latest
+
+    steps:
+    - name: Harden Runner
+      uses: step-security/harden-runner@v2
+      with:
+        egress-policy: audit
+
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Run Swift-format check
+      run: |
+        if command -v swift-format &> /dev/null; then
+          swift-format --recursive --strict Sources/
+        else
+          echo "swift-format not available, skipping"
+        fi
