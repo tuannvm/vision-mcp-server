@@ -9,13 +9,24 @@ enum OCRTools {
     static var ocrExtractTextTool: Tool {
         Tool(
             name: "ocr_extract_text",
-            description: "Extract text from image using local Apple Vision OCR. Fully offline, no uploads.",
+            description: """
+            OCR - Extract text from images, screenshots, and photos using Apple Vision Framework. Fully offline, no data uploads.
+
+            Use this tool when users ask to:
+            - Extract text from an image, screenshot, or photo
+            - OCR an image, read text from a picture
+            - Transcribe text from a screenshot
+            - Convert image text to digital format
+            - Analyze text content in images
+
+            Supported inputs: Base64 data URLs (pasted images), local file paths, remote http/https URLs
+            """,
             inputSchema: .object([
                 "type": .string("object"),
                 "properties": .object([
                     "image": .object([
                         "type": .string("string"),
-                        "description": .string("Base64-encoded image data (data:image/...;base64,...) or local file path. When pasting images in Claude Code, they are automatically converted to base64 format.")
+                        "description": .string("Image input in one of three formats: (1) Base64 data URL: data:image/xxx;base64,... - for pasted images, (2) Local file path: /path/to/image.jpg, (3) Remote URL: https://example.com/image.jpg")
                     ]),
                     "languages": .object([
                         "type": .string("array"),

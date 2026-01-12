@@ -42,13 +42,28 @@ Extract Chinese text using fast recognition
 
 | Tool | Description |
 |------|-------------|
-| `analyze_image` | Extract text from images using Apple Vision Framework |
+| `ocr_extract_text` | Extract text from images using Apple Vision Framework |
 
 ## Examples
 
-**Basic text extraction:**
+The tool automatically detects the input format:
+
+**Pasted Images (Base64):**
 ```
 Extract the text from this image
+```
+When you paste an image in Claude Code, it's automatically converted to base64 format.
+
+**Local File Paths:**
+```
+Read text from /Users/username/Desktop/screenshot.png
+Extract text from ~/Downloads/receipt.jpg
+```
+
+**Remote URLs:**
+```
+Extract text from https://example.com/screenshot.jpg
+OCR the image at https://example.org/photo.png
 ```
 
 **Multi-language extraction:**
