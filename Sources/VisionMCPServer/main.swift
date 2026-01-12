@@ -17,9 +17,9 @@ func runOCRMCPServer() async throws -> Server {
         handler.logLevel = .debug
         return handler
     }
-    let logger = Logger(label: "com.ocr-mcp-server")
+    let logger = Logger(label: "com.vision-mcp-server")
 
-    logger.info("Starting OCR MCP Server")
+    logger.info("Starting Vision MCP Server")
 
     // Create MCP server with capabilities
     let server = Server(

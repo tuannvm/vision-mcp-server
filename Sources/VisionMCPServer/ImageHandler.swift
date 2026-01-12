@@ -82,7 +82,7 @@ enum ImageHandler {
         // Create temp file with appropriate extension
         let fileExtension = fileExtensionFor(mimeType: mimeType)
         let tempURL = FileManager.default.temporaryDirectory
-            .appendingPathComponent("ocr-mcp-\(UUID().uuidString)")
+            .appendingPathComponent("vision-mcp-\(UUID().uuidString)")
             .appendingPathExtension(fileExtension)
 
         // Write image data
