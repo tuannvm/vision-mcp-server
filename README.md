@@ -1,60 +1,76 @@
 # Vision MCP Server
 
-A local-only OCR (Optical Character Recognition) MCP server for Claude Code. Extract text from images using Apple's native Vision Framework - fully offline, privacy-focused, no API keys required.
+[![npm version](https://img.shields.io/npm/v/@tuannvm/vision-mcp-server.svg)](https://www.npmjs.com/package/@tuannvm/vision-mcp-server)
+[![license](https://img.shields.io/npm/l/@tuannvm/vision-mcp-server.svg)](https://www.npmjs.com/package/@tuannvm/vision-mcp-server)
 
-## Features
+Local-only OCR MCP server using Apple Vision Framework. Fully offline, privacy-focused text extraction from images directly in Claude Code.
 
-- Local-only processing (Apple Vision Framework)
-- Offline capable, no network required
-- Multi-language support (16+ languages)
-- Base64 and file path input support
-- Swift 6.2+ with modern concurrency
+```mermaid
+graph LR
+    A[Claude Code] --> B[Vision MCP Server]
+    B --> C[Apple Vision Framework]
+    C --> D[Local Text Extraction]
 
-## Requirements
-
-- macOS 13.0+
-- Xcode 16+ or Swift 6.2+
-- Claude Code (or MCP-compatible client)
+    style A fill:#FF6B35
+    style B fill:#4A90E2
+    style C fill:#00D4AA
+    style D fill:#FFA500
+```
 
 ## Quick Start
 
+### 1. Install the Server
+
 ```bash
-# Clone and build
-git clone https://github.com/tuannvm/vision-mcp-server.git
-cd vision-mcp-server
-npm run build:release
+claude mcp add local-ocr -- npx -y @tuannvm/vision-mcp-server
 ```
 
-Add to `~/.config/claude/claude_desktop_config.json`:
+### 2. Start Using
 
-```json
-{
-  "mcpServers": {
-    "local-ocr": {
-      "command": "/path/to/vision-mcp-server/vision-mcp-server"
-    }
-  }
-}
+```
+Extract the text from this image
+Extract Chinese text using fast recognition
 ```
 
-Restart Claude Code.
+## One-Click Install
 
-## Usage
+[![VS Code](https://img.shields.io/badge/VS_Code-Install-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://vscode.dev/redirect/mcp/install?name=local-ocr&config=%7B%22type%22%3A%22stdio%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22%40tuannvm%2Fvision-mcp-server%22%5D%7D)
+[![VS Code Insiders](https://img.shields.io/badge/VS_Code_Insiders-Install-24bfa5?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=local-ocr&config=%7B%22type%22%3A%22stdio%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22%40tuannvm%2Fvision-mcp-server%22%5D%7D)
+[![Cursor](https://img.shields.io/badge/Cursor-Install-00D8FF?style=flat-square&logo=cursor&logoColor=white)](https://cursor.com/en/install-mcp?name=local-ocr&config=eyJ0eXBlIjoic3RkaW8iLCJjb21tYW5kIjoibnB4IC15IEB0dWFubnZtL3Zpc2lvbi1tY3Atc2VydmVyIiwiZW52Ijp7fX0%3D)
 
-Paste an image and ask:
-> "Extract the text from this image"
+## Tools
 
-Or specify parameters:
-> "Extract Chinese text using fast recognition"
+| Tool | Description |
+|------|-------------|
+| `analyze_image` | Extract text from images using Apple Vision Framework |
 
-## Tool Parameters
+## Examples
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `image` | string | *required* | Base64 data URL or file path |
-| `languages` | array | `["en-US"]` | Recognition languages |
-| `recognitionLevel` | string | `"accurate"` | `"fast"` or `"accurate"` |
-| `usesLanguageCorrection` | boolean | `true` | Enable language model |
+**Basic text extraction:**
+```
+Extract the text from this image
+```
+
+**Multi-language extraction:**
+```
+Extract Chinese and Japanese text from this screenshot
+```
+
+**Fast recognition mode:**
+```
+Extract text using fast recognition mode
+```
+
+**Advanced options:**
+```
+Extract text with recognition level "fast" and language correction disabled
+```
+
+## Requirements
+
+- **macOS 13.0+** — Apple Vision Framework is built into macOS
+- **Node.js 18+** — Required for MCP server runtime
+- **Apple Silicon or Intel** — Both arm64 and x64 are supported
 
 ## Supported Languages
 
@@ -64,8 +80,22 @@ Or specify parameters:
 
 ## Documentation
 
-- [Architecture](docs/architecture.md) - Technical design
-- [development.md](docs/development.md) - Build & development guide
+- **[API Reference](docs/api-reference.md)** — Full tool parameters and response formats
+- **[Architecture](docs/architecture.md)** — Technical design details
+
+## Development
+
+```bash
+npm install         # Install dependencies
+npm run build       # Build Swift binary
+npm run build:release  # Build optimized release binary
+npm test            # Run tests
+```
+
+## Related Projects
+
+- **[codex-mcp-server](https://github.com/tuannvm/codex-mcp-server)** — MCP server for OpenAI Codex CLI with AI-powered code analysis and review
+- **[gemini-mcp-server](https://github.com/tuannvm/gemini-mcp-server)** — MCP server for Gemini CLI with 1M+ token context, web search, and media analysis
 
 ## License
 
