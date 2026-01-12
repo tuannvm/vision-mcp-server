@@ -1,6 +1,6 @@
 {
   "name": "@tuannvm/vision-mcp-server",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Local-only OCR MCP server using Apple Vision Framework. Fully offline, privacy-focused text extraction from images.",
   "private": false,
   "type": "module",
