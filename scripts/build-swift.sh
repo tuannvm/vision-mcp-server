@@ -41,9 +41,9 @@ SWIFT_VERSION=$(swift --version 2>/dev/null | head -1 || echo "unknown")
 log "Swift version: $SWIFT_VERSION"
 
 # Minimum Swift version check
-REQUIRED_SWIFT="6.0"
-if ! swift --version | grep -qE "6\.[0-9]|6\.[1-9][0-9]|[7-9]\."; then
-    error "Swift 6.0+ is required (found: $SWIFT_VERSION)"
+REQUIRED_SWIFT="6.2"
+if ! swift --version | grep -qE "6\.[2-9]|6\.[1-9][0-9]|[7-9]\."; then
+    error "Swift 6.2+ is required (found: $SWIFT_VERSION)"
     error "Please update Xcode or Swift toolchain"
     exit 1
 fi

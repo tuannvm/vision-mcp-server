@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: macos-14
+    runs-on: macos-26
 
     steps:
     - name: Harden Runner
@@ -37,7 +37,7 @@ jobs:
         echo '{"jsonrpc":"2.0","method":"tools/list","id":1}' | .build/release/VisionMCPServer 2>/dev/null | jq .
 
   security:
-    runs-on: macos-latest
+    runs-on: macos-26
 
     steps:
     - name: Harden Runner
