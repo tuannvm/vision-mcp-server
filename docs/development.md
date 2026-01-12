@@ -3,7 +3,7 @@
 ## Prerequisites
 
 ```bash
-# Install Swift 6.1+
+# Install Swift 6.2+
 # Via Xcode (recommended)
 xcode-select --install
 
@@ -16,7 +16,7 @@ xcode-select --install
 ```
 vision-mcp-server/
 ├── Package.swift              # Swift package manifest
-├── Sources/ocr-mcp-server/
+├── Sources/VisionMCPServer/
 │   ├── main.swift             # Entry point (@main)
 │   ├── VisionOCR.swift        # Vision Framework wrapper
 │   ├── MCPServer.swift        # MCP protocol handlers
@@ -108,7 +108,7 @@ handler.logLevel = .debug  // Already set
 - Verify language parameter matches image text
 
 **Build errors**
-- Ensure Swift 6.1+ (`swift --version`)
+- Ensure Swift 6.2+ (`swift --version`)
 - Run `swift package resolve`
 
 **Binary not executable**

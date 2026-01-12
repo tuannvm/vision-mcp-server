@@ -8,12 +8,12 @@ A local-only OCR (Optical Character Recognition) MCP server for Claude Code. Ext
 - Offline capable, no network required
 - Multi-language support (16+ languages)
 - Base64 and file path input support
-- Swift 6.1+ with modern concurrency
+- Swift 6.2+ with modern concurrency
 
 ## Requirements
 
 - macOS 13.0+
-- Xcode 16+ or Swift 6.1+
+- Xcode 16+ or Swift 6.2+
 - Claude Code (or MCP-compatible client)
 
 ## Quick Start
