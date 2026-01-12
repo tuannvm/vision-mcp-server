@@ -1,0 +1,32 @@
+# Swift build artifacts
+.build/
+*.dSYM/
+*.swiftrd
+*.swiftmodule
+
+# Built binary (copied to project root by build script)
+vision-mcp-server
+
+# Xcode
+*.xcodeproj/
+*.xcworkspace/
+xcuserdata/
+DerivedData/
+
+# Swift Package Manager
+.swiftpm/
+Package.resolved
+
+# macOS
+.DS_Store
+
+# Node.js (for wrapper script)
+node_modules/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+tmp/

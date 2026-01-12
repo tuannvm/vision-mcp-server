@@ -1,0 +1,57 @@
+{
+  "name": "@tuannvm/vision-mcp-server",
+  "version": "1.0.0",
+  "description": "Local-only OCR MCP server using Apple Vision Framework. Fully offline, privacy-focused text extraction from images.",
+  "private": false,
+  "type": "module",
+  "main": "vision-mcp.js",
+  "bin": {
+    "vision-mcp-server": "vision-mcp.js"
+  },
+  "files": [
+    "ocr-mcp-server",
+    "vision-mcp.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "./scripts/build-swift.sh",
+    "build:release": "./scripts/build-swift.sh --release",
+    "prepare-release": "node scripts/prepare-release.js",
+    "prepublishOnly": "npm run build:release && npm run prepare-release",
+    "postinstall": "chmod +x ocr-mcp-server 2>/dev/null || true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tuannvm/vision-mcp-server.git"
+  },
+  "author": "Tuan NVM <tuannvm@users.noreply.github.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tuannvm/vision-mcp-server/issues"
+  },
+  "homepage": "https://github.com/tuannvm/vision-mcp-server#readme",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ocr",
+    "vision",
+    "apple",
+    "macos",
+    "text-extraction",
+    "offline",
+    "privacy",
+    "claude",
+    "ai"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "os": [
+    "darwin"
+  ],
+  "cpu": [
+    "arm64",
+    "x64"
+  ]
+}

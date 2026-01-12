@@ -1,0 +1,17 @@
+version: 2
+updates:
+  # npm package-ecosystem for package.json (node wrapper scripts)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "tuannvm"
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+
+  # Swift packages - using swift-dependabot or manual updates
+  # Note: Swift doesn't have native Dependabot support yet
+  # This section is kept for future when Swift package support is added
